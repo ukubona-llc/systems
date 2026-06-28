@@ -37,7 +37,6 @@
     --loop-w:    2px;
   }
 
-  /* ── LIGHT THEME ─────────────────────────────────────────── */
   [data-theme="light"] {
     --bg:        #F2F0EA;
     --surface:   #FFFFFF;
@@ -221,7 +220,6 @@
     gap: 0;
   }
 
-  /* The spine — the loop backbone */
   .stages::before {
     content: '';
     position: absolute;
@@ -248,7 +246,6 @@
     cursor: pointer;
   }
 
-  /* Node dot */
   .stage-node {
     position: relative;
     display: flex;
@@ -275,7 +272,6 @@
     box-shadow: 0 0 12px var(--amber-dim);
   }
 
-  /* Stage content area */
   .stage-body {
     border: 1px solid transparent;
     border-radius: var(--radius);
@@ -294,7 +290,6 @@
     background: var(--surface);
   }
 
-  /* Stage header row */
   .stage-head {
     display: flex;
     align-items: baseline;
@@ -334,7 +329,6 @@
 
   .stage.active .math { color: var(--amber); }
 
-  /* Expandable detail */
   .stage-detail {
     display: grid;
     grid-template-rows: 0fr;
@@ -396,7 +390,6 @@
     border-radius: 2px;
   }
 
-  /* ROYGBIV strip */
   .roygbiv {
     display: flex;
     height: 4px;
@@ -409,7 +402,6 @@
     flex: 1;
   }
 
-  /* Insight callout */
   .insight {
     margin: 0 1.25rem 1.25rem;
     padding: 0.85rem 1rem;
@@ -430,6 +422,36 @@
   .insight strong {
     font-weight: 500;
     color: var(--amber);
+  }
+
+  /* ── WOZNIAK PULL QUOTE ──────────────────────────────────── */
+  .woz-quote {
+    margin: 0 1.25rem 1.25rem;
+    padding: 1rem 1.1rem;
+    border-left: 3px solid var(--blue);
+    background: #60A5FA0D;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-size: 0.8rem;
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.7;
+    display: none;
+    font-style: italic;
+  }
+
+  .woz-quote em.attr {
+    font-style: normal;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--blue);
+    letter-spacing: 0.08em;
+    display: block;
+    margin-top: 0.55rem;
+    font-weight: 400;
+  }
+
+  .stage.active .woz-quote {
+    display: block;
   }
 
   /* ── FEEDBACK ARROW ──────────────────────────────────────── */
@@ -599,7 +621,6 @@
     letter-spacing: 0.08em;
   }
 
-  /* ── HOVER hint ──────────────────────────────────────────── */
   .hint {
     font-size: 0.72rem;
     color: var(--muted);
@@ -638,7 +659,7 @@
   .video-wrap {
     position: relative;
     width: 100%;
-    padding-bottom: 56.25%; /* 16:9 */
+    padding-bottom: 56.25%;
     background: #000;
     border-radius: 6px;
     overflow: hidden;
@@ -652,7 +673,6 @@
     border: none;
   }
 
-  /* Timestamps */
   .timestamps {
     margin-top: 1rem;
     display: grid;
@@ -679,6 +699,20 @@
     text-decoration: none;
   }
 
+  /* Gemini-sourced chips get a distinct blue accent */
+  .ts-chip.gemini {
+    border-color: #60A5FA33;
+  }
+  .ts-chip.gemini:hover {
+    border-color: var(--blue);
+  }
+  .ts-chip.gemini .ts-time {
+    color: var(--blue);
+  }
+  .ts-chip.gemini .ts-stage {
+    color: #60A5FA88;
+  }
+
   .ts-time {
     font-family: var(--mono);
     font-size: 0.7rem;
@@ -703,6 +737,16 @@
     color: var(--amber-dim);
     display: block;
     margin-top: 0.2rem;
+  }
+
+  .ts-source {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.06em;
+    color: var(--blue);
+    display: inline-block;
+    margin-top: 0.2rem;
+    opacity: 0.7;
   }
 
   .video-caption {
@@ -759,10 +803,21 @@
       </span>
     </a>
 
-    <a class="ts-chip" href="https://www.youtube.com/watch?v=R3OcY37GOAA&t=360s" target="_blank">
-      <span class="ts-time">~6:00</span>
-      <span class="ts-desc">Woz invokes Newton &amp; Shakespeare — Jobs benchmarks himself against paradigm-shifters, not hobbyists
+    <!-- Gemini-sourced: 06:05 expanded annotation -->
+    <a class="ts-chip gemini" href="https://www.youtube.com/watch?v=R3OcY37GOAA&t=365s" target="_blank">
+      <span class="ts-time">6:05</span>
+      <span class="ts-desc">Woz benchmarks Jobs against Newton &amp; Shakespeare — Jobs sought the civilizational gradient, not hobbyist products. Each Woz node triggered Jobs' compression: "I know how we can sell it."
         <span class="ts-stage">II · Kubona · J = ∂y/∂x · sensitivity to the civilizational gradient</span>
+        <span class="ts-source">↳ Gemini annotation</span>
+      </span>
+    </a>
+
+    <!-- Gemini-sourced: 15:47 — the Jacobian crux -->
+    <a class="ts-chip gemini" href="https://www.youtube.com/watch?v=R3OcY37GOAA&t=947s" target="_blank">
+      <span class="ts-time">15:47</span>
+      <span class="ts-desc">"Understand the technology and be able to talk to the engineers and not be totally lost." — Woz on what separates an architect from a delegator. Jobs held a joint distribution of both market and engineering; he was evaluating J = ∂y/∂θᵗ, not just watching the scalar.
+        <span class="ts-stage">II · Kubona · J = ∂y/∂x · the Jacobian crux · never outsource your derivatives</span>
+        <span class="ts-source">↳ Gemini annotation · verified 15:47</span>
       </span>
     </a>
 
@@ -792,6 +847,7 @@
     <strong>The Madness of Steve Jobs Told by Steve Wozniak</strong> — Valuetainment · 2M views.
     Timestamps verified by Gemini. Woz is the LLM at the node; Jobs is the γ|ε_FGT|² — the architect of descent.
     You find Woz going back to Berkeley strange for the same reason Jobs would have. Grok got it backwards.
+    <strong style="color: var(--blue); font-style: normal;">Blue chips = Gemini annotations.</strong>
   </p>
 </div>
 
@@ -867,9 +923,13 @@
                 <div class="detail-label">Why Jacobian, not loss</div>
                 <p>Loss asks <em>"how bad are we?"</em> — a scalar. The Jacobian asks <em>"what moves what?"</em> — a matrix. Rotate one column of the event-stream; watch every outcome row respond. That is the ontology itself. Loss is downstream of the Jacobian, not equivalent to it.</p>
               </div>
+              <div class="detail-block wide">
+                <div class="detail-label">Jobs at 15:47 · never outsource your derivatives</div>
+                <p>Wozniak's exact words: "understand the technology and be able to talk to the engineers and not be totally lost." A leader who completely delegates to engineering receives a scalar — revenue — but holds no map of the underlying sensitivities. Jobs maintained a joint distribution of both market and engineering state, which means he was actively evaluating <code>J = ∂y/∂θᵗ</code>. When Woz perturbed the engineering event-stream at a node, Jobs could trace the downstream shift in the sales outcome. That is what made him the architect rather than a stakeholder.</p>
+              </div>
             </div>
             <div class="insight">
-              <strong>The matrix is the map:</strong> Every intervention in the world corresponds to a column operation on J. The Jacobian makes the causal structure of the system legible before any optimization begins.
+              <strong>The matrix is the map:</strong> Every intervention in the world corresponds to a column operation on J. The Jacobian makes the causal structure of the system legible before any optimization begins. Jobs didn't just know "sales drive income" (∂y) — he knew which engineering perturbations moved which sales columns. That is the difference between a scalar manager and a Jacobian architect.
             </div>
           </div>
         </div>
@@ -936,9 +996,17 @@
                 <div class="detail-label">The jitter principle</div>
                 <p>Deliberate noise injection simulates life's curveballs and enables local basin escape. The only constraint on the system is the trajectory of descent. All other governance is built on top of that single rule — not before it.</p>
               </div>
+              <div class="detail-block wide">
+                <div class="detail-label">Jobs as γ|ε_FGT|² · the trajectory, not the node</div>
+                <p>Wozniak was the multimodal LLM: brilliant at each engineering node, individually swappable. Jobs was the γ|ε_FGT|² term — the optimizer evaluating prediction error against tomorrow, not fixed labels. Because Jobs held the full Jacobian (Stage II), he could optimize the parameter state <code>θᵗ</code> against what the market would confirm at <code>t+1</code>. The ecosystem and the UI/UX were not designed; they were the emergent consequence of an architect who never outsourced his derivatives.</p>
+              </div>
+            </div>
+            <div class="woz-quote">
+              "He wasn't an engineer… he couldn't write a program… but he knew what would sell."
+              <em class="attr">— Steve Wozniak · 15:04 · Valuetainment · the FGT oracle</em>
             </div>
             <div class="insight">
-              <strong>Most AI systems optimize prediction error.</strong> This system optimizes prediction error <em>against tomorrow</em>. That distinction is the real contribution: reality — not the model — is the supervisor. The LLM is a hypothesis; the world is the test.
+              <strong>Most AI systems optimize prediction error.</strong> This system optimizes prediction error <em>against tomorrow</em>. That distinction is the real contribution: reality — not the model — is the supervisor. The LLM is a hypothesis; the world is the test. Jobs is the proof of concept: Woz was the hypothesis generator; the market was the test. The resulting Apple ecosystem was not designed. It descended.
             </div>
           </div>
         </div>
@@ -1010,7 +1078,7 @@
           <td>II · J</td>
           <td class="before-after">Measure loss</td>
           <td>Jacobian</td>
-          <td>Second-order object: sensitivities, not outcomes</td>
+          <td>Second-order object: sensitivities, not outcomes. Jobs at 15:47: never outsource ∂y/∂θ</td>
         </tr>
         <tr>
           <td>III · f(σ²,λ,ε)</td>
@@ -1022,7 +1090,7 @@
           <td>IV · γ|ε_FGT|²</td>
           <td class="before-after">Optimize</td>
           <td>Federated Ground Truth</td>
-          <td>Reality, not labels, supervises the optimizer</td>
+          <td>Reality, not labels, supervises. Jobs = trajectory; Woz = removable node</td>
         </tr>
         <tr>
           <td>V · L(θᵗ⁺¹)</td>
@@ -1039,11 +1107,11 @@
     <p class="eq-label">The complete loop</p>
     <div class="eq-row"><span class="eq-symbol">θᵗ</span><span class="eq-arrow">→</span><span class="eq-desc">state estimation · event stream</span></div>
     <div class="eq-row"><span class="eq-symbol">↓</span></div>
-    <div class="eq-row"><span class="eq-symbol">J = ∂y/∂x</span><span class="eq-arrow">→</span><span class="eq-desc">sensitivity estimation · ontology matrix</span></div>
+    <div class="eq-row"><span class="eq-symbol">J = ∂y/∂x</span><span class="eq-arrow">→</span><span class="eq-desc">sensitivity estimation · ontology matrix · never outsource this</span></div>
     <div class="eq-row"><span class="eq-symbol">↓</span></div>
     <div class="eq-row"><span class="eq-symbol">f(σ²,λ,ε)</span><span class="eq-arrow">→</span><span class="eq-desc">inference under uncertainty</span></div>
     <div class="eq-row"><span class="eq-symbol">↓</span></div>
-    <div class="eq-row"><span class="eq-symbol">γ|ε_FGT|²</span><span class="eq-arrow">→</span><span class="eq-desc">reality-constrained gradient descent</span></div>
+    <div class="eq-row"><span class="eq-symbol">γ|ε_FGT|²</span><span class="eq-arrow">→</span><span class="eq-desc">reality-constrained gradient descent · Jobs as the optimizer</span></div>
     <div class="eq-row"><span class="eq-symbol">↓</span></div>
     <div class="eq-row"><span class="eq-symbol">L(θᵗ⁺¹)</span><span class="eq-arrow">→</span><span class="eq-desc">updated policy · ecosystem output</span></div>
     <div class="eq-row"><span class="eq-symbol">↓ ↺</span><span class="eq-arrow"></span><span class="eq-desc">θᵗ⁺¹ becomes next θᵗ</span></div>
@@ -1057,7 +1125,6 @@
 </footer>
 
 <script>
-  // ── THEME TOGGLE ─────────────────────────────────────────
   (function(){
     var html = document.documentElement;
     var btn  = document.getElementById('theme-btn');
@@ -1071,7 +1138,6 @@
     apply('dark');
   })();
 
-  // ── STAGE EXPAND ─────────────────────────────────────────
   function toggle(el) {
     var wasActive = el.classList.contains('active');
     document.querySelectorAll('.stage').forEach(function(s){ s.classList.remove('active'); });
