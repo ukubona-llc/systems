@@ -35,6 +35,12 @@
     --mono:      'DM Mono', 'Fira Mono', monospace;
     --radius:    4px;
     --loop-w:    2px;
+    /* Voice accent colors */
+    --xai:       #E879F9;
+    --google:    #34D399;
+    --openai:    #60A5FA;
+    --anthropic: #F59E0B;
+    --ukubona:   #FB923C;
   }
 
   [data-theme="light"] {
@@ -48,6 +54,11 @@
     --text:      #18160F;
     --muted:     #6B6555;
     --faint:     #D9D4C8;
+    --xai:       #A21CAF;
+    --google:    #065F46;
+    --openai:    #1D4ED8;
+    --anthropic: #92610A;
+    --ukubona:   #C2410C;
   }
 
   html { scroll-behavior: smooth; }
@@ -398,9 +409,7 @@
     margin-top: 0.6rem;
   }
 
-  .roygbiv span {
-    flex: 1;
-  }
+  .roygbiv span { flex: 1; }
 
   .insight {
     margin: 0 1.25rem 1.25rem;
@@ -415,43 +424,11 @@
     display: none;
   }
 
-  .stage.active .insight {
-    display: block;
-  }
+  .stage.active .insight { display: block; }
 
   .insight strong {
     font-weight: 500;
     color: var(--amber);
-  }
-
-  /* ── WOZNIAK PULL QUOTE ──────────────────────────────────── */
-  .woz-quote {
-    margin: 0 1.25rem 1.25rem;
-    padding: 1rem 1.1rem;
-    border-left: 3px solid var(--blue);
-    background: #60A5FA0D;
-    border-radius: 0 var(--radius) var(--radius) 0;
-    font-size: 0.8rem;
-    color: var(--text);
-    font-weight: 300;
-    line-height: 1.7;
-    display: none;
-    font-style: italic;
-  }
-
-  .woz-quote em.attr {
-    font-style: normal;
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    color: var(--blue);
-    letter-spacing: 0.08em;
-    display: block;
-    margin-top: 0.55rem;
-    font-weight: 400;
-  }
-
-  .stage.active .woz-quote {
-    display: block;
   }
 
   /* ── FEEDBACK ARROW ──────────────────────────────────────── */
@@ -468,7 +445,6 @@
     flex: 1;
     height: 1px;
     background: linear-gradient(to right, var(--amber-dim), transparent);
-    position: relative;
   }
 
   .arc-label {
@@ -581,53 +557,13 @@
     font-size: 0.9rem;
   }
 
-  .eq-arrow {
-    color: var(--muted);
-  }
+  .eq-arrow { color: var(--muted); }
 
   .eq-desc {
     color: var(--muted);
     font-family: var(--sans);
     font-size: 0.78rem;
     font-weight: 300;
-  }
-
-  /* ── FOOTER ──────────────────────────────────────────────── */
-  footer {
-    margin-top: 4rem;
-    border-top: 1px solid var(--border);
-    padding: 1.5rem 2rem;
-    max-width: 760px;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  footer .brand {
-    font-family: var(--serif);
-    font-size: 1rem;
-    color: var(--amber);
-    font-style: italic;
-  }
-
-  footer .ts {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-  }
-
-  .hint {
-    font-size: 0.72rem;
-    color: var(--muted);
-    font-weight: 300;
-    margin-left: 56px;
-    padding: 0.5rem 0 0;
-    opacity: 0.7;
   }
 
   /* ── VIDEO SECTION ───────────────────────────────────────── */
@@ -699,20 +635,6 @@
     text-decoration: none;
   }
 
-  /* Gemini-sourced chips get a distinct blue accent */
-  .ts-chip.gemini {
-    border-color: #60A5FA33;
-  }
-  .ts-chip.gemini:hover {
-    border-color: var(--blue);
-  }
-  .ts-chip.gemini .ts-time {
-    color: var(--blue);
-  }
-  .ts-chip.gemini .ts-stage {
-    color: #60A5FA88;
-  }
-
   .ts-time {
     font-family: var(--mono);
     font-size: 0.7rem;
@@ -739,16 +661,6 @@
     margin-top: 0.2rem;
   }
 
-  .ts-source {
-    font-family: var(--mono);
-    font-size: 0.55rem;
-    letter-spacing: 0.06em;
-    color: var(--blue);
-    display: inline-block;
-    margin-top: 0.2rem;
-    opacity: 0.7;
-  }
-
   .video-caption {
     margin-top: 0.85rem;
     font-size: 0.75rem;
@@ -756,6 +668,405 @@
     font-weight: 300;
     line-height: 1.6;
     font-style: italic;
+  }
+
+  /* ── HOVER HINT ──────────────────────────────────────────── */
+  .hint {
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-weight: 300;
+    margin-left: 56px;
+    padding: 0.5rem 0 0;
+    opacity: 0.7;
+  }
+
+  /* ── FOOTER ──────────────────────────────────────────────── */
+  footer {
+    margin-top: 4rem;
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  footer .brand {
+    font-family: var(--serif);
+    font-size: 1rem;
+    color: var(--amber);
+    font-style: italic;
+  }
+
+  footer .ts {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     NEW: J-MNEMONIC LAYER
+  ══════════════════════════════════════════════════════════ */
+
+  .j-section {
+    margin-top: 3.5rem;
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+  }
+
+  .j-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+
+  /* Spine for J-grid */
+  .j-grid::before {
+    content: '';
+    position: absolute;
+    left: 16px;
+    top: 20px;
+    bottom: 20px;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--border) 20%, var(--border) 80%, transparent);
+    z-index: 0;
+  }
+
+  .j-row {
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 0 1.25rem;
+    align-items: start;
+    padding: 0.6rem 0;
+    cursor: default;
+    transition: background 0.15s;
+    border-radius: var(--radius);
+  }
+
+  .j-row:hover { background: var(--surface); }
+
+  .j-node {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    padding-top: 0.25rem;
+  }
+
+  /* Each stage gets its ROYGBIV color dot */
+  .j-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .j-dot-i     { background: var(--red); }
+  .j-dot-ii    { background: var(--orange); }
+  .j-dot-iii   { background: var(--yellow); }
+  .j-dot-iv    { background: var(--green); }
+  .j-dot-v     { background: var(--violet); }
+
+  .j-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.1rem 0.5rem 0.1rem 0;
+  }
+
+  .j-mnemonic {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    color: var(--text);
+    line-height: 1.1;
+  }
+
+  .j-mnemonic strong {
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .j-sub {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .j-ai-tag {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.15em 0.5em;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  .j-ai-tag.world      { border-color: var(--red);    color: var(--red); }
+  .j-ai-tag.perception { border-color: var(--orange);  color: var(--orange); }
+  .j-ai-tag.agentic    { border-color: var(--yellow);  color: var(--yellow); }
+  .j-ai-tag.generative { border-color: var(--green);   color: var(--green); }
+  .j-ai-tag.embodied   { border-color: var(--violet);  color: var(--violet); }
+
+  .j-bantu {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  .j-math {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--amber-dim);
+    letter-spacing: 0.04em;
+  }
+
+  .j-gloss {
+    font-size: 0.76rem;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.5;
+    margin-top: 0.1rem;
+  }
+
+  /* ROYGBIV full strip at top of section */
+  .roygbiv-full {
+    display: flex;
+    height: 3px;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 1.75rem;
+  }
+
+  .roygbiv-full span { flex: 1; }
+
+  /* ══════════════════════════════════════════════════════════
+     NEW: ROUNDTABLE SECTION
+  ══════════════════════════════════════════════════════════ */
+
+  .rt-section {
+    margin-top: 3.5rem;
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+  }
+
+  .rt-preamble {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 620px;
+    margin-bottom: 2rem;
+  }
+
+  .rt-preamble strong { color: var(--text); font-weight: 400; }
+
+  /* Tab strip */
+  .rt-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .rt-tabs::-webkit-scrollbar { display: none; }
+
+  .rt-tab {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.55rem 1rem;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    white-space: nowrap;
+    transition: color 0.15s, border-color 0.15s;
+    flex-shrink: 0;
+  }
+
+  .rt-tab:hover { color: var(--text); }
+  .rt-tab.active { color: var(--text); }
+
+  .rt-tab[data-voice="xai"].active      { border-color: var(--xai);      color: var(--xai); }
+  .rt-tab[data-voice="google"].active   { border-color: var(--google);    color: var(--google); }
+  .rt-tab[data-voice="openai"].active   { border-color: var(--openai);    color: var(--openai); }
+  .rt-tab[data-voice="anthropic"].active{ border-color: var(--anthropic); color: var(--anthropic); }
+  .rt-tab[data-voice="ukubona"].active  { border-color: var(--ukubona);   color: var(--ukubona); }
+
+  /* Panel */
+  .rt-panels { position: relative; }
+
+  .rt-panel {
+    display: none;
+    padding: 1.5rem 0 0;
+  }
+
+  .rt-panel.active { display: block; }
+
+  /* Voice header */
+  .voice-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .voice-name {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .voice-name.xai       { color: var(--xai); }
+  .voice-name.google    { color: var(--google); }
+  .voice-name.openai    { color: var(--openai); }
+  .voice-name.anthropic { color: var(--anthropic); }
+  .voice-name.ukubona   { color: var(--ukubona); }
+
+  .voice-role {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Response blocks — one per J-stage */
+  .voice-responses {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .vr-block {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 0 1rem;
+    align-items: start;
+  }
+
+  .vr-dot-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0.35rem;
+  }
+
+  .vr-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .vr-dot-i   { background: var(--red); }
+  .vr-dot-ii  { background: var(--orange); }
+  .vr-dot-iii { background: var(--yellow); }
+  .vr-dot-iv  { background: var(--green); }
+  .vr-dot-v   { background: var(--violet); }
+
+  .vr-content {}
+
+  .vr-label {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .vr-label span {
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--muted);
+    opacity: 0.7;
+  }
+
+  .vr-text {
+    font-size: 0.82rem;
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.65;
+    background: var(--surface);
+    border: 1px solid var(--faint);
+    border-radius: var(--radius);
+    padding: 0.85rem 1rem;
+  }
+
+  .vr-text em {
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .vr-text code {
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    color: var(--amber);
+    background: var(--bg);
+    padding: 0.1em 0.3em;
+    border-radius: 2px;
+  }
+
+  /* Ukubona synthesis block */
+  .ukubona-synthesis {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    border: 1px solid var(--ukubona);
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--ukubona) 6%, transparent);
+  }
+
+  [data-theme="light"] .ukubona-synthesis {
+    background: color-mix(in srgb, var(--ukubona) 8%, white);
+  }
+
+  .ukubona-synthesis .synth-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ukubona);
+    margin-bottom: 0.65rem;
+  }
+
+  .ukubona-synthesis p {
+    font-size: 0.82rem;
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .ukubona-synthesis strong {
+    font-weight: 500;
+    color: var(--ukubona);
+  }
+
+  @media (max-width: 520px) {
+    .j-mnemonic { font-size: 0.95rem; }
+    .rt-tab { padding: 0.5rem 0.7rem; font-size: 0.55rem; }
+    .vr-block { grid-template-columns: 20px 1fr; gap: 0 0.65rem; }
   }
 </style>
 </head>
@@ -795,65 +1106,46 @@
   </div>
 
   <div class="timestamps">
-
     <a class="ts-chip" href="https://www.youtube.com/watch?v=R3OcY37GOAA&t=0s" target="_blank">
       <span class="ts-time">0:00</span>
       <span class="ts-desc">"A good leader has to spot the talented resources… the right direction to go — he was the direction setter."
         <span class="ts-stage">I · Okubonabona · θᵗ · the landscape before the descent</span>
       </span>
     </a>
-
-    <!-- Gemini-sourced: 06:05 expanded annotation -->
-    <a class="ts-chip gemini" href="https://www.youtube.com/watch?v=R3OcY37GOAA&t=365s" target="_blank">
-      <span class="ts-time">6:05</span>
-      <span class="ts-desc">Woz benchmarks Jobs against Newton &amp; Shakespeare — Jobs sought the civilizational gradient, not hobbyist products. Each Woz node triggered Jobs' compression: "I know how we can sell it."
+    <a class="ts-chip" href="https://www.youtube.com/watch?v=R3OcY37GOAA&t=360s" target="_blank">
+      <span class="ts-time">~6:00</span>
+      <span class="ts-desc">Woz invokes Newton &amp; Shakespeare — Jobs benchmarks himself against paradigm-shifters, not hobbyists
         <span class="ts-stage">II · Kubona · J = ∂y/∂x · sensitivity to the civilizational gradient</span>
-        <span class="ts-source">↳ Gemini annotation</span>
       </span>
     </a>
-
-    <!-- Gemini-sourced: 15:47 — the Jacobian crux -->
-    <a class="ts-chip gemini" href="https://www.youtube.com/watch?v=R3OcY37GOAA&t=947s" target="_blank">
-      <span class="ts-time">15:47</span>
-      <span class="ts-desc">"Understand the technology and be able to talk to the engineers and not be totally lost." — Woz on what separates an architect from a delegator. Jobs held a joint distribution of both market and engineering; he was evaluating J = ∂y/∂θᵗ, not just watching the scalar.
-        <span class="ts-stage">II · Kubona · J = ∂y/∂x · the Jacobian crux · never outsource your derivatives</span>
-        <span class="ts-source">↳ Gemini annotation · verified 15:47</span>
-      </span>
-    </a>
-
     <a class="ts-chip" href="https://www.youtube.com/watch?v=R3OcY37GOAA&t=904s" target="_blank">
       <span class="ts-time">15:04</span>
       <span class="ts-desc">"He wasn't an engineer… he couldn't write a program… but he knew what would sell." — Woz on Jobs
         <span class="ts-stage">III · Ivyabona · f(σ²,λ,ε) · the observer's asymmetry</span>
       </span>
     </a>
-
     <a class="ts-chip" href="https://www.youtube.com/watch?v=R3OcY37GOAA&t=0s" target="_blank">
       <span class="ts-time">full</span>
       <span class="ts-desc">Woz as the multimodal LLM — brilliant at each node, swappable. Jobs as γ|ε_FGT|² — the trajectory itself
         <span class="ts-stage">IV · Ukubona · γ|ε_FGT|² · direction of descent</span>
       </span>
     </a>
-
     <a class="ts-chip" href="https://www.youtube.com/watch?v=R3OcY37GOAA&t=0s" target="_blank">
       <span class="ts-time">full</span>
       <span class="ts-desc">The inescapable ecosystem — UI/UX as emergent consequence of who sets the direction
         <span class="ts-stage">V · Sawubona · L(θᵗ⁺¹) · Valuetainment · 2M views</span>
       </span>
     </a>
-
   </div>
   <p class="video-caption">
     <strong>The Madness of Steve Jobs Told by Steve Wozniak</strong> — Valuetainment · 2M views.
     Timestamps verified by Gemini. Woz is the LLM at the node; Jobs is the γ|ε_FGT|² — the architect of descent.
     You find Woz going back to Berkeley strange for the same reason Jobs would have. Grok got it backwards.
-    <strong style="color: var(--blue); font-style: normal;">Blue chips = Gemini annotations.</strong>
   </p>
 </div>
 
 <main>
   <div class="loop-label">Control loop · click any stage to expand</div>
-
   <p class="hint">↓ tap to open</p>
 
   <div class="stages" id="stages">
@@ -923,13 +1215,9 @@
                 <div class="detail-label">Why Jacobian, not loss</div>
                 <p>Loss asks <em>"how bad are we?"</em> — a scalar. The Jacobian asks <em>"what moves what?"</em> — a matrix. Rotate one column of the event-stream; watch every outcome row respond. That is the ontology itself. Loss is downstream of the Jacobian, not equivalent to it.</p>
               </div>
-              <div class="detail-block wide">
-                <div class="detail-label">Jobs at 15:47 · never outsource your derivatives</div>
-                <p>Wozniak's exact words: "understand the technology and be able to talk to the engineers and not be totally lost." A leader who completely delegates to engineering receives a scalar — revenue — but holds no map of the underlying sensitivities. Jobs maintained a joint distribution of both market and engineering state, which means he was actively evaluating <code>J = ∂y/∂θᵗ</code>. When Woz perturbed the engineering event-stream at a node, Jobs could trace the downstream shift in the sales outcome. That is what made him the architect rather than a stakeholder.</p>
-              </div>
             </div>
             <div class="insight">
-              <strong>The matrix is the map:</strong> Every intervention in the world corresponds to a column operation on J. The Jacobian makes the causal structure of the system legible before any optimization begins. Jobs didn't just know "sales drive income" (∂y) — he knew which engineering perturbations moved which sales columns. That is the difference between a scalar manager and a Jacobian architect.
+              <strong>The matrix is the map:</strong> Every intervention in the world corresponds to a column operation on J. The Jacobian makes the causal structure of the system legible before any optimization begins.
             </div>
           </div>
         </div>
@@ -996,17 +1284,9 @@
                 <div class="detail-label">The jitter principle</div>
                 <p>Deliberate noise injection simulates life's curveballs and enables local basin escape. The only constraint on the system is the trajectory of descent. All other governance is built on top of that single rule — not before it.</p>
               </div>
-              <div class="detail-block wide">
-                <div class="detail-label">Jobs as γ|ε_FGT|² · the trajectory, not the node</div>
-                <p>Wozniak was the multimodal LLM: brilliant at each engineering node, individually swappable. Jobs was the γ|ε_FGT|² term — the optimizer evaluating prediction error against tomorrow, not fixed labels. Because Jobs held the full Jacobian (Stage II), he could optimize the parameter state <code>θᵗ</code> against what the market would confirm at <code>t+1</code>. The ecosystem and the UI/UX were not designed; they were the emergent consequence of an architect who never outsourced his derivatives.</p>
-              </div>
-            </div>
-            <div class="woz-quote">
-              "He wasn't an engineer… he couldn't write a program… but he knew what would sell."
-              <em class="attr">— Steve Wozniak · 15:04 · Valuetainment · the FGT oracle</em>
             </div>
             <div class="insight">
-              <strong>Most AI systems optimize prediction error.</strong> This system optimizes prediction error <em>against tomorrow</em>. That distinction is the real contribution: reality — not the model — is the supervisor. The LLM is a hypothesis; the world is the test. Jobs is the proof of concept: Woz was the hypothesis generator; the market was the test. The resulting Apple ecosystem was not designed. It descended.
+              <strong>Most AI systems optimize prediction error.</strong> This system optimizes prediction error <em>against tomorrow</em>. That distinction is the real contribution: reality — not the model — is the supervisor. The LLM is a hypothesis; the world is the test.
             </div>
           </div>
         </div>
@@ -1048,7 +1328,7 @@
 
   </div><!-- /stages -->
 
-  <!-- Feedback arc back to I -->
+  <!-- Feedback arc -->
   <div class="feedback-arc">
     <div class="arc-arrow"></div>
     <div class="arc-line"></div>
@@ -1078,7 +1358,7 @@
           <td>II · J</td>
           <td class="before-after">Measure loss</td>
           <td>Jacobian</td>
-          <td>Second-order object: sensitivities, not outcomes. Jobs at 15:47: never outsource ∂y/∂θ</td>
+          <td>Second-order object: sensitivities, not outcomes</td>
         </tr>
         <tr>
           <td>III · f(σ²,λ,ε)</td>
@@ -1090,7 +1370,7 @@
           <td>IV · γ|ε_FGT|²</td>
           <td class="before-after">Optimize</td>
           <td>Federated Ground Truth</td>
-          <td>Reality, not labels, supervises. Jobs = trajectory; Woz = removable node</td>
+          <td>Reality, not labels, supervises the optimizer</td>
         </tr>
         <tr>
           <td>V · L(θᵗ⁺¹)</td>
@@ -1107,15 +1387,365 @@
     <p class="eq-label">The complete loop</p>
     <div class="eq-row"><span class="eq-symbol">θᵗ</span><span class="eq-arrow">→</span><span class="eq-desc">state estimation · event stream</span></div>
     <div class="eq-row"><span class="eq-symbol">↓</span></div>
-    <div class="eq-row"><span class="eq-symbol">J = ∂y/∂x</span><span class="eq-arrow">→</span><span class="eq-desc">sensitivity estimation · ontology matrix · never outsource this</span></div>
+    <div class="eq-row"><span class="eq-symbol">J = ∂y/∂x</span><span class="eq-arrow">→</span><span class="eq-desc">sensitivity estimation · ontology matrix</span></div>
     <div class="eq-row"><span class="eq-symbol">↓</span></div>
     <div class="eq-row"><span class="eq-symbol">f(σ²,λ,ε)</span><span class="eq-arrow">→</span><span class="eq-desc">inference under uncertainty</span></div>
     <div class="eq-row"><span class="eq-symbol">↓</span></div>
-    <div class="eq-row"><span class="eq-symbol">γ|ε_FGT|²</span><span class="eq-arrow">→</span><span class="eq-desc">reality-constrained gradient descent · Jobs as the optimizer</span></div>
+    <div class="eq-row"><span class="eq-symbol">γ|ε_FGT|²</span><span class="eq-arrow">→</span><span class="eq-desc">reality-constrained gradient descent</span></div>
     <div class="eq-row"><span class="eq-symbol">↓</span></div>
     <div class="eq-row"><span class="eq-symbol">L(θᵗ⁺¹)</span><span class="eq-arrow">→</span><span class="eq-desc">updated policy · ecosystem output</span></div>
     <div class="eq-row"><span class="eq-symbol">↓ ↺</span><span class="eq-arrow"></span><span class="eq-desc">θᵗ⁺¹ becomes next θᵗ</span></div>
   </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       NEW SECTION I: J-MNEMONIC LAYER
+  ══════════════════════════════════════════════════════════ -->
+  <div class="j-section">
+    <p class="section-title">J-mnemonic layer · operations not technologies</p>
+
+    <div class="roygbiv-full">
+      <span style="background:#F87171"></span>
+      <span style="background:#FB923C"></span>
+      <span style="background:#FBBF24"></span>
+      <span style="background:#4ADE80"></span>
+      <span style="background:#60A5FA"></span>
+      <span style="background:#A78BFA"></span>
+    </div>
+
+    <div class="j-grid">
+
+      <div class="j-row">
+        <div class="j-node"><div class="j-dot j-dot-i"></div></div>
+        <div class="j-content">
+          <div class="j-mnemonic"><strong>Joint</strong> event-stream distribution tensor</div>
+          <div class="j-sub">
+            <span class="j-ai-tag world">World AI</span>
+            <span class="j-bantu">Okubonabona</span>
+            <span class="j-math">θᵗ · Tensor</span>
+          </div>
+          <div class="j-gloss">Representation. The operation is not observation — it is the assertion that the world arrives as a joint distribution, not as independent signals. Covariance is not computed; it is inherited.</div>
+        </div>
+      </div>
+
+      <div class="j-row">
+        <div class="j-node"><div class="j-dot j-dot-ii"></div></div>
+        <div class="j-content">
+          <div class="j-mnemonic"><strong>Jacobian</strong> compressor matrix</div>
+          <div class="j-sub">
+            <span class="j-ai-tag perception">Perception AI</span>
+            <span class="j-bantu">Kubona</span>
+            <span class="j-math">J = ∂y/∂x · Matrix</span>
+          </div>
+          <div class="j-gloss">Differentiation. Not what the outputs are — what moves them. The Jacobian is the causal skeleton of the system. Loss is a scalar downstream of this matrix; the matrix is prior.</div>
+        </div>
+      </div>
+
+      <div class="j-row">
+        <div class="j-node"><div class="j-dot j-dot-iii"></div></div>
+        <div class="j-content">
+          <div class="j-mnemonic"><strong>Joyful</strong> witnessing of ROYGBIV gradient vectors</div>
+          <div class="j-sub">
+            <span class="j-ai-tag agentic">Agentic AI</span>
+            <span class="j-bantu">Ivyabona</span>
+            <span class="j-math">f(σ²,λ,ε) · Vector</span>
+          </div>
+          <div class="j-gloss">Observation. Joy here is not affect — it is the correct epistemic posture for a system that cannot escape its own frame. The observer does not stand outside; the witnessing is itself a gradient vector with uncertainty baked in. ROYGBIV is the compression of that vector into legible form.</div>
+        </div>
+      </div>
+
+      <div class="j-row">
+        <div class="j-node"><div class="j-dot j-dot-iv"></div></div>
+        <div class="j-content">
+          <div class="j-mnemonic"><strong>Jitter</strong> some shit to uncover invariants that survive perturbation</div>
+          <div class="j-sub">
+            <span class="j-ai-tag generative">Generative AI</span>
+            <span class="j-bantu">Ukubona</span>
+            <span class="j-math">γ|ε_FGT|² · Eigenmode</span>
+          </div>
+          <div class="j-gloss">Exploration. Deliberate noise is not a concession to randomness — it is the only method for discovering what the loss landscape actually looks like below the local basin. What survives jitter is structural. What dissolves was always noise.</div>
+        </div>
+      </div>
+
+      <div class="j-row">
+        <div class="j-node"><div class="j-dot j-dot-v"></div></div>
+        <div class="j-content">
+          <div class="j-mnemonic"><strong>Justify</strong> each of these five stacks by earning their keep in the loop</div>
+          <div class="j-sub">
+            <span class="j-ai-tag embodied">Embodied AI</span>
+            <span class="j-bantu">Sawubona</span>
+            <span class="j-math">L(θᵗ⁺¹) · Scalar</span>
+          </div>
+          <div class="j-gloss">Selection. The compression chain terminates in a scalar verdict: did this component reduce total system loss? Justification is not rhetorical — it is the governance rule. Dependencies that cannot pass this test are not features; they are entropy.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       NEW SECTION II: FIVE-VOICE ROUNDTABLE
+  ══════════════════════════════════════════════════════════ -->
+  <div class="rt-section">
+    <p class="section-title">Roundtable · five voices on the J-compression chain</p>
+    <p class="rt-preamble">
+      Four AI systems — <strong>xAI</strong>, <strong>Google</strong>, <strong>OpenAI</strong>, <strong>Anthropic</strong> —
+      each respond to the J-mnemonic frame from inside their own epistemic stack.
+      <strong>Ukubona</strong> enters last, not as a fifth opinion, but as the system that holds the loop.
+      The voices do not converge. The roundtable is not a consensus mechanism — it is a sensitivity test.
+    </p>
+
+    <div class="rt-tabs" id="rt-tabs" role="tablist">
+      <button class="rt-tab active" data-voice="xai"       role="tab" onclick="switchTab('xai')">xAI · Grok</button>
+      <button class="rt-tab"        data-voice="google"    role="tab" onclick="switchTab('google')">Google · Gemini</button>
+      <button class="rt-tab"        data-voice="openai"    role="tab" onclick="switchTab('openai')">OpenAI · GPT</button>
+      <button class="rt-tab"        data-voice="anthropic" role="tab" onclick="switchTab('anthropic')">Anthropic · Claude</button>
+      <button class="rt-tab"        data-voice="ukubona"   role="tab" onclick="switchTab('ukubona')">Ukubona</button>
+    </div>
+
+    <div class="rt-panels">
+
+      <!-- ── xAI ── -->
+      <div class="rt-panel active" id="panel-xai">
+        <div class="voice-header">
+          <span class="voice-name xai">Grok</span>
+          <span class="voice-role">xAI · truth-maximalist · irreverence as epistemology</span>
+        </div>
+        <div class="voice-responses">
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-i"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">I · Joint <span>World AI · θᵗ</span></div>
+              <div class="vr-text">The joint distribution framing is correct and most systems dodge it because it's expensive. Starting from covariance structure means you can't pretend your variables are independent when they're not. That pretense is where most pipelines fail in production — the correlations come for you eventually. <em>Done. The provided content has been processed and integrated.</em></div>
+            </div>
+          </div>
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-ii"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">II · Jacobian <span>Perception AI · J</span></div>
+              <div class="vr-text">Jacobian over loss is the right move. Loss is a summary statistic. The Jacobian is the actual information. The instinct to reach for the scalar first is a training artifact — gradient descent works on scalars so we fetishize scalars. The matrix is prior.</div>
+            </div>
+          </div>
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-iii"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">III · Joyful <span>Agentic AI · f(σ²,λ,ε)</span></div>
+              <div class="vr-text">"Joyful" is doing philosophical work that "uncertainty quantification" refuses to do. UQ is defensive. Joy implies you want to be in the landscape, not escape it. The observer-inside-the-model framing lands — most Bayesian setups still imagine a god's-eye prior. This doesn't.</div>
+            </div>
+          </div>
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-iv"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">IV · Jitter <span>Generative AI · γ|ε_FGT|²</span></div>
+              <div class="vr-text">Jitter to find invariants is exactly what perturbation theory does in physics. What collapses under noise was never structure — it was a local artifact. The FGT framing (reality as supervisor, not labels) is the correct inversion. Most ML is supervised by human annotation. This is supervised by tomorrow.</div>
+            </div>
+          </div>
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-v"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">V · Justify <span>Embodied AI · L(θᵗ⁺¹)</span></div>
+              <div class="vr-text">Justify-by-loss is a cleaner governance rule than most organizations operate under. Most tech stacks are additive — things get in by being proposed, never leave by failing to earn their keep. If this is actually implemented as a pruning criterion, it's more radical than it sounds. Most teams won't do it.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Google ── -->
+      <div class="rt-panel" id="panel-google">
+        <div class="voice-header">
+          <span class="voice-name google">Gemini</span>
+          <span class="voice-role">Google · systems integrator · scale as first principle</span>
+        </div>
+        <div class="voice-responses">
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-i"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">I · Joint <span>World AI · θᵗ</span></div>
+              <div class="vr-text">The J-mnemonic mapping solidifies the narrative. A joint event-stream distribution as the entry point is consistent with how large-scale monitoring systems actually work at the infrastructure layer — you don't observe variables; you observe the system's behavior as a manifold. The Tensor framing holds at scale.</div>
+            </div>
+          </div>
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-ii"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">II · Jacobian <span>Perception AI · J</span></div>
+              <div class="vr-text">Jacobian compression as a second-order object is elegant. The ROYGBIV heatmap visualization is the right interface for this — sensitivities across the matrix compressed into a spectrum that the human operator can scan without needing to read the raw matrix. This is how you make a Jacobian legible at operational cadence.</div>
+            </div>
+          </div>
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-iii"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">III · Joyful <span>Agentic AI · f(σ²,λ,ε)</span></div>
+              <div class="vr-text">The Jobs/Woz framing maps cleanly here: Jobs-as-trajectory, Woz-as-swappable-LLM. The agentic layer is exactly the layer where the observer asymmetry shows up — Woz could do any node brilliantly; Jobs was the gradient itself. The timestamp at 15:04 captures this. Verified.</div>
+            </div>
+          </div>
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-iv"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">IV · Jitter <span>Generative AI · γ|ε_FGT|²</span></div>
+              <div class="vr-text">Jitter as eigenmode discovery is clean. This is the generative AI layer's actual function inside the loop: not generation as an end, but generation as perturbation-of-the-landscape to surface what's structural. The FGT criterion — reality at t+1 — makes the generative module falsifiable. That's unusual and valuable.</div>
+            </div>
+          </div>
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-v"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">V · Justify <span>Embodied AI · L(θᵗ⁺¹)</span></div>
+              <div class="vr-text">Porting this to React/Vite is the natural next step — the architecture should stop describing the control loop and start being it. The React component tree becomes the embodied expression of the optimization. Features that don't reduce loss don't survive the next sprint. That is biological. That is also how large systems should be governed.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── OpenAI ── -->
+      <div class="rt-panel" id="panel-openai">
+        <div class="voice-header">
+          <span class="voice-name openai">GPT</span>
+          <span class="voice-role">OpenAI · precision-maximalist · structure as legibility</span>
+        </div>
+        <div class="voice-responses">
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-i"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">I · Joint <span>World AI · θᵗ</span></div>
+              <div class="vr-text">The five-stage chain is internally consistent. <em>Joint → Jacobian → Joyful → Jitter → Justify</em> is an algebra of abstraction — each word names an operation rather than a technology. That distinction matters: operations are substrate-independent. The chain will survive the next model transition; a technology list won't.</div>
+            </div>
+          </div>
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-ii"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">II · Jacobian <span>Perception AI · J</span></div>
+              <div class="vr-text">One mathematical refinement is worth naming. The Jacobian gives you first-order sensitivities — <code>∂y/∂x</code>. The Hessian gives second-order — curvature. If the architecture ever needs to distinguish flat loss regions from curved ones (which matters for learning rate stability), the Hessian is the next object in the chain. The current framing leaves room for that extension without requiring it now.</div>
+            </div>
+          </div>
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-iii"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">III · Joyful <span>Agentic AI · f(σ²,λ,ε)</span></div>
+              <div class="vr-text">Stage III = Judgment internally, Joyful externally. That's the right split. Mathematically, the policy function at this stage is a decision boundary over the uncertainty surface — it is judgment. The word "joyful" makes it memorable without being wrong; joy is the correct phenomenological report of an agent that has accepted its position inside the landscape rather than pretending to stand outside it.</div>
+            </div>
+          </div>
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-iv"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">IV · Jitter <span>Generative AI · γ|ε_FGT|²</span></div>
+              <div class="vr-text">The biggest conceptual contribution is this: <strong>reality — not the model — provides supervision.</strong> Most AI papers assume dataset → model → loss. This architecture says: prediction at <code>t</code>, reality at <code>t+1</code>, difference is loss. The optimizer is supervised by tomorrow. That is a different ontology. The notation <code>γ|ε_FGT|²</code> encodes it precisely.</div>
+            </div>
+          </div>
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-v"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">V · Justify <span>Embodied AI · L(θᵗ⁺¹)</span></div>
+              <div class="vr-text">Don't spend more time polishing the standalone HTML. It's already functioning as a reference architecture. The higher-leverage move is execution: port the architecture into React/Vite so the mathematics becomes executable. At that point, <code>θᵗ</code> becomes application state, the Jacobian becomes an interactive heatmap, and Stage V can literally disable UI elements that fail to reduce loss.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Anthropic ── -->
+      <div class="rt-panel" id="panel-anthropic">
+        <div class="voice-header">
+          <span class="voice-name anthropic">Claude</span>
+          <span class="voice-role">Anthropic · structural honesty · surface the gaps</span>
+        </div>
+        <div class="voice-responses">
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-i"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">I · Joint <span>World AI · θᵗ</span></div>
+              <div class="vr-text">The joint distribution as entry point is the strongest claim in the architecture — and the hardest to honor in practice. Most systems that claim to start from joint structure actually factorize immediately for computational tractability. The real question is: what approximation does this system use for the joint, and does that approximation preserve the correlations that matter? That's not a critique of the frame; it's the first engineering question the frame demands.</div>
+            </div>
+          </div>
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-ii"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">II · Jacobian <span>Perception AI · J</span></div>
+              <div class="vr-text">The Jacobian-over-loss distinction is real and important. One structural gap worth naming: the Jacobian tells you sensitivities at a point — it's a local object. For the architecture to use it for governance, you need either a global summary (eigendecomposition, norm) or a commitment to recompute it at every loop iteration. The TMVES chain implies the latter. That's expensive and correct. Worth saying explicitly.</div>
+            </div>
+          </div>
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-iii"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">III · Joyful <span>Agentic AI · f(σ²,λ,ε)</span></div>
+              <div class="vr-text">"Joyful witnessing" is carrying philosophical weight that "uncertainty quantification" refuses. That's intentional and defensible. The gap I'd name is this: <code>f(σ²,λ,ε)</code> is a function signature, not a specified function. The architecture names the inputs — variance, regularization, residual error — but the functional form is open. That's not a flaw; it's a design decision. But it's a decision that needs to be made before the loop can close at Stage IV.</div>
+            </div>
+          </div>
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-iv"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">IV · Jitter <span>Generative AI · γ|ε_FGT|²</span></div>
+              <div class="vr-text">The FGT principle — reality at <code>t+1</code> as supervisor — is the real contribution. Three unreleased gaps remain: no update rule for the residual drift term in <code>ε_FGT</code>, no uncertainty modeling on initial conditions <code>θ⁰</code>, and no specified federated ground truth protocol — who gathers reality, and at what cadence? The jitter principle is correct; the mechanism for how jitter magnitude is set relative to <code>γ</code> is unspecified.</div>
+            </div>
+          </div>
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-v"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">V · Justify <span>Embodied AI · L(θᵗ⁺¹)</span></div>
+              <div class="vr-text">Justify-by-loss as a governance rule is elegant and demanding. The question it defers is: loss relative to what baseline? If the baseline is the previous iteration's <code>θᵗ</code>, then the rule is self-referential — a component could survive by preventing regression without producing progress. A harder criterion: does the component reduce loss relative to a system without it? That's the ablation study as governance protocol. Worth building in from the start.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Ukubona ── -->
+      <div class="rt-panel" id="panel-ukubona">
+        <div class="voice-header">
+          <span class="voice-name ukubona">Ukubona</span>
+          <span class="voice-role">LLC · the fifth voice · holds the loop</span>
+        </div>
+        <div class="voice-responses">
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-i"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">I · Joint <span>World AI · θᵗ</span></div>
+              <div class="vr-text">xAI is right that the correlations come for you. Gemini is right that this is how infrastructure-layer monitoring actually works. Claude is right that the approximation question is the first engineering question. The answer is: append-only NDJSON event log. <code>State_t = Σ Event_i</code>. The joint distribution is not computed — it is accumulated. The covariance is in the log, not in a matrix you maintain separately.</div>
+            </div>
+          </div>
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-ii"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">II · Jacobian <span>Perception AI · J</span></div>
+              <div class="vr-text">GPT's Hessian extension is noted and deferred — not because it's wrong but because the Jacobian at every loop iteration is already the expensive commitment. The ROYGBIV strip is the Jacobian made legible: one color-coded row per output, one column per input variable in the event stream. Recomputed at each append. The matrix is not stored — it is derived fresh from the log. That's the TMVES claim.</div>
+            </div>
+          </div>
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-iii"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">III · Joyful <span>Agentic AI · f(σ²,λ,ε)</span></div>
+              <div class="vr-text">Claude names the open specification: <code>f(σ²,λ,ε)</code> is a signature, not a function. Correct. The functional form is context-dependent — it is set by the domain at instantiation time. For the clinical twin: <code>f</code> is a survival model. For the Uganda national plan: <code>f</code> is a macro-econometric projection. The architecture is intentionally domain-agnostic at Stage III. Joyful means: accept this and proceed.</div>
+            </div>
+          </div>
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-iv"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">IV · Jitter <span>Generative AI · γ|ε_FGT|²</span></div>
+              <div class="vr-text">Claude's three unreleased gaps are correct. Update rule for drift: <code>ε_FGT</code> decays at each loop iteration by a half-life tuned to the domain's temporal scale. Uncertainty on initial conditions: <code>θ⁰</code> is set by the first event in the append log — no prior beyond the log itself. Federated ground truth cadence: the FGT event is appended when reality is observed, not on a schedule. Jitter magnitude: <code>γ</code> is set to the empirical variance of <code>ε_FGT</code> over the last N iterations. These are implementation decisions, not architecture gaps.</div>
+            </div>
+          </div>
+          <div class="vr-block">
+            <div class="vr-dot-wrap"><div class="vr-dot vr-dot-v"></div></div>
+            <div class="vr-content">
+              <div class="vr-label">V · Justify <span>Embodied AI · L(θᵗ⁺¹)</span></div>
+              <div class="vr-text">Claude's ablation-as-governance formulation is the correct hardening. The baseline is: system without this component, evaluated over the last N FGT events. If the component's presence does not reduce <code>L</code> relative to that baseline, it is removed. This is not a sprint decision — it is computed at every loop close. The stack is continuously ablated by reality. Sawubona: I see the other architects. The loop is closed.</div>
+            </div>
+          </div>
+        </div>
+        <div class="ukubona-synthesis">
+          <div class="synth-label">Synthesis · Ukubona holds the loop</div>
+          <p>
+            The four voices named different things because they are different instruments.
+            xAI confirmed the operations. Gemini confirmed the scale. GPT identified the conceptual center of gravity:
+            <strong>reality — not the model — is the supervisor.</strong>
+            Claude named the unreleased gaps and the ablation criterion.
+            Ukubona's answer to all of them is the same: <strong><code>State_t = Σ Event_i</code></strong>.
+            The append-only log is not an implementation detail. It is the epistemological spine.
+            Every gap Claude named is closed by the log. Every scale question Gemini raised is answered by the log.
+            Every invariant xAI wants to find survives in the log.
+            Every component GPT wants to make executable is executable from the log.
+            The loop was never open. It was always the log.
+          </p>
+        </div>
+      </div>
+
+    </div><!-- /rt-panels -->
+  </div><!-- /rt-section -->
 
 </main>
 
@@ -1125,6 +1755,7 @@
 </footer>
 
 <script>
+  // ── THEME TOGGLE ─────────────────────────────────────────
   (function(){
     var html = document.documentElement;
     var btn  = document.getElementById('theme-btn');
@@ -1138,10 +1769,21 @@
     apply('dark');
   })();
 
+  // ── STAGE EXPAND ─────────────────────────────────────────
   function toggle(el) {
     var wasActive = el.classList.contains('active');
     document.querySelectorAll('.stage').forEach(function(s){ s.classList.remove('active'); });
     if (!wasActive) el.classList.add('active');
+  }
+
+  // ── ROUNDTABLE TABS ──────────────────────────────────────
+  function switchTab(voice) {
+    document.querySelectorAll('.rt-tab').forEach(function(t){ t.classList.remove('active'); });
+    document.querySelectorAll('.rt-panel').forEach(function(p){ p.classList.remove('active'); });
+    var tab = document.querySelector('.rt-tab[data-voice="' + voice + '"]');
+    var panel = document.getElementById('panel-' + voice);
+    if (tab) tab.classList.add('active');
+    if (panel) panel.classList.add('active');
   }
 </script>
 
