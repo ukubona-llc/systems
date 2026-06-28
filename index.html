@@ -1,1 +1,794 @@
-.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ukubona · Systems Architect</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #08080D;
+    --surface:   #0F0F18;
+    --surface2:  #16161F;
+    --border:    #1E1E2E;
+    --amber:     #F59E0B;
+    --amber-dim: #92610A;
+    --amber-glow:#F59E0B22;
+    --text:      #E8E8F0;
+    --muted:     #7070A0;
+    --faint:     #2A2A3A;
+    --red:       #F87171;
+    --orange:    #FB923C;
+    --yellow:    #FBBF24;
+    --green:     #4ADE80;
+    --blue:      #60A5FA;
+    --violet:    #A78BFA;
+    --serif:     'DM Serif Display', Georgia, serif;
+    --sans:      'DM Sans', system-ui, sans-serif;
+    --mono:      'DM Mono', 'Fira Mono', monospace;
+    --radius:    4px;
+    --loop-w:    2px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ─────────────────────────────────────────────── */
+  header {
+    padding: 3.5rem 2rem 2rem;
+    max-width: 760px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.1;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--amber);
+  }
+
+  .subtitle {
+    font-size: 0.875rem;
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 560px;
+    line-height: 1.65;
+  }
+
+  /* ── MAIN LAYOUT ─────────────────────────────────────────── */
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+  }
+
+  /* ── LOOP INTRO ──────────────────────────────────────────── */
+  .loop-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 2rem 0 1.25rem;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .loop-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── STAGE CARDS ─────────────────────────────────────────── */
+  .stages {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* The spine — the loop backbone */
+  .stages::before {
+    content: '';
+    position: absolute;
+    left: 27px;
+    top: 28px;
+    bottom: 28px;
+    width: var(--loop-w);
+    background: linear-gradient(
+      to bottom,
+      var(--amber-dim) 0%,
+      var(--amber) 20%,
+      var(--amber) 80%,
+      var(--amber-dim) 100%
+    );
+    opacity: 0.35;
+    z-index: 0;
+  }
+
+  .stage {
+    position: relative;
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 0 1.5rem;
+    cursor: pointer;
+  }
+
+  /* Node dot */
+  .stage-node {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+    padding-top: 20px;
+  }
+
+  .node-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: var(--loop-w) solid var(--muted);
+    background: var(--bg);
+    flex-shrink: 0;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  }
+
+  .stage.active .node-dot,
+  .stage:hover .node-dot {
+    border-color: var(--amber);
+    background: var(--amber-glow);
+    box-shadow: 0 0 12px var(--amber-dim);
+  }
+
+  /* Stage content area */
+  .stage-body {
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    margin: 8px 0;
+    transition: border-color 0.2s, background 0.2s;
+    overflow: hidden;
+  }
+
+  .stage:hover .stage-body {
+    border-color: var(--border);
+    background: var(--surface);
+  }
+
+  .stage.active .stage-body {
+    border-color: var(--amber-dim);
+    background: var(--surface);
+  }
+
+  /* Stage header row */
+  .stage-head {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 1rem 1.25rem 0.75rem;
+  }
+
+  .bantu {
+    font-family: var(--serif);
+    font-size: 1.55rem;
+    line-height: 1;
+    color: var(--text);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    flex-shrink: 0;
+  }
+
+  .stage.active .bantu { color: var(--amber); }
+
+  .bantu-gloss {
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-weight: 300;
+    font-style: italic;
+    white-space: nowrap;
+  }
+
+  .math {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--amber-dim);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .stage.active .math { color: var(--amber); }
+
+  /* Expandable detail */
+  .stage-detail {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.32s ease;
+  }
+
+  .stage.active .stage-detail {
+    grid-template-rows: 1fr;
+  }
+
+  .stage-detail-inner {
+    overflow: hidden;
+  }
+
+  .stage-content {
+    padding: 0 1.25rem 1.25rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  @media (max-width: 520px) {
+    .stage-content { grid-template-columns: 1fr; }
+  }
+
+  .detail-block {
+    padding: 0.85rem 1rem;
+    background: var(--surface2);
+    border-radius: var(--radius);
+    border: 1px solid var(--faint);
+  }
+
+  .detail-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .detail-block p {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--text);
+    font-weight: 300;
+  }
+
+  .detail-block.wide {
+    grid-column: 1 / -1;
+  }
+
+  .detail-block code {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--amber);
+    background: var(--bg);
+    padding: 0.1em 0.3em;
+    border-radius: 2px;
+  }
+
+  /* ROYGBIV strip */
+  .roygbiv {
+    display: flex;
+    height: 4px;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 0.6rem;
+  }
+
+  .roygbiv span {
+    flex: 1;
+  }
+
+  /* Insight callout */
+  .insight {
+    margin: 0 1.25rem 1.25rem;
+    padding: 0.85rem 1rem;
+    border-left: 2px solid var(--amber-dim);
+    background: var(--amber-glow);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-size: 0.81rem;
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.65;
+    display: none;
+  }
+
+  .stage.active .insight {
+    display: block;
+  }
+
+  .insight strong {
+    font-weight: 500;
+    color: var(--amber);
+  }
+
+  /* ── FEEDBACK ARROW ──────────────────────────────────────── */
+  .feedback-arc {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.5rem 0 0 0;
+    margin-left: 56px;
+    margin-bottom: 1rem;
+  }
+
+  .arc-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--amber-dim), transparent);
+    position: relative;
+  }
+
+  .arc-label {
+    font-family: var(--mono);
+    font-size: 0.67rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber-dim);
+    white-space: nowrap;
+  }
+
+  .arc-arrow {
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-right: 7px solid var(--amber-dim);
+  }
+
+  /* ── ARCHITECTURE TABLE ──────────────────────────────────── */
+  .arch-section {
+    margin-top: 3.5rem;
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+  }
+
+  .section-title {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+  }
+
+  .arch-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+  }
+
+  .arch-table th {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    padding: 0.4rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    font-weight: 400;
+  }
+
+  .arch-table td {
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid var(--faint);
+    vertical-align: top;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .arch-table tr:last-child td { border-bottom: none; }
+
+  .arch-table td:first-child {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 400;
+    white-space: nowrap;
+    color: var(--amber);
+    padding-right: 1rem;
+  }
+
+  .arch-table .before-after {
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* ── EQUATION BLOCK ──────────────────────────────────────── */
+  .eq-block {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 2.1;
+    color: var(--text);
+  }
+
+  .eq-block .eq-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+    font-family: var(--sans);
+  }
+
+  .eq-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .eq-symbol {
+    color: var(--amber);
+    min-width: 90px;
+    font-size: 0.9rem;
+  }
+
+  .eq-arrow {
+    color: var(--muted);
+  }
+
+  .eq-desc {
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 300;
+  }
+
+  /* ── FOOTER ──────────────────────────────────────────────── */
+  footer {
+    margin-top: 4rem;
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  footer .brand {
+    font-family: var(--serif);
+    font-size: 1rem;
+    color: var(--amber);
+    font-style: italic;
+  }
+
+  footer .ts {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── HOVER hint ──────────────────────────────────────────── */
+  .hint {
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-weight: 300;
+    margin-left: 56px;
+    padding: 0.5rem 0 0;
+    opacity: 0.7;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">Ukubona LLC · Architecture Reference</p>
+  <h1>Systems <em>Architect</em></h1>
+  <p class="subtitle">
+    A reality-constrained adaptive control loop. Five stages, one recursive cycle.
+    Semantics, measurement, optimization, and governance aligned in a single closed system.
+  </p>
+</header>
+
+<main>
+  <div class="loop-label">Control loop · click any stage to expand</div>
+
+  <p class="hint">↓ tap to open</p>
+
+  <div class="stages" id="stages">
+
+    <!-- ── STAGE I ── -->
+    <div class="stage" data-index="0" onclick="toggle(this)">
+      <div class="stage-node"><div class="node-dot"></div></div>
+      <div class="stage-body">
+        <div class="stage-head">
+          <span class="bantu">Okubonabona</span>
+          <span class="bantu-gloss">loss · suffering · the raw landscape</span>
+          <span class="math">θᵗ</span>
+        </div>
+        <div class="stage-detail">
+          <div class="stage-detail-inner">
+            <div class="stage-content">
+              <div class="detail-block">
+                <div class="detail-label">System role</div>
+                <p>State estimation. The system begins from a joint distribution of the event-stream, not isolated observations.</p>
+              </div>
+              <div class="detail-block">
+                <div class="detail-label">Sources</div>
+                <p>Telemetry, journaling, markets — any stream that encodes the real landscape of what is happening.</p>
+              </div>
+              <div class="detail-block wide">
+                <div class="detail-label">Mathematical object</div>
+                <p><code>θᵗ</code> — the current parameter state of the system. Everything downstream is conditioned on this prior. It is not a fixed starting point; it is continuously overwritten by <code>θᵗ⁺¹</code> as the loop closes.</p>
+              </div>
+            </div>
+            <div class="insight">
+              <strong>Why it matters:</strong> Starting from a joint distribution instead of scalar inputs means the system inherits the covariance structure of the world. Correlations are not computed later — they are present at initialization.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── STAGE II ── -->
+    <div class="stage" data-index="1" onclick="toggle(this)">
+      <div class="stage-node"><div class="node-dot"></div></div>
+      <div class="stage-body">
+        <div class="stage-head">
+          <span class="bantu">Kubona</span>
+          <span class="bantu-gloss">to find · rediscover wholesomeness</span>
+          <span class="math">J = ∂y/∂x</span>
+        </div>
+        <div class="stage-detail">
+          <div class="stage-detail-inner">
+            <div class="stage-content">
+              <div class="detail-block">
+                <div class="detail-label">System role</div>
+                <p>Sensitivity estimation. Not computing outcomes — computing what moves what. A second-order object.</p>
+              </div>
+              <div class="detail-block">
+                <div class="detail-label">Visualization</div>
+                <p>Jacobian compression heatmap. Each cell Jᵢⱼ: how much does outcome yᵢ move when event-stream variable xⱼ changes?</p>
+                <div class="roygbiv">
+                  <span style="background:#F87171"></span>
+                  <span style="background:#FB923C"></span>
+                  <span style="background:#FBBF24"></span>
+                  <span style="background:#4ADE80"></span>
+                  <span style="background:#60A5FA"></span>
+                  <span style="background:#A78BFA"></span>
+                </div>
+              </div>
+              <div class="detail-block wide">
+                <div class="detail-label">Why Jacobian, not loss</div>
+                <p>Loss asks <em>"how bad are we?"</em> — a scalar. The Jacobian asks <em>"what moves what?"</em> — a matrix. Rotate one column of the event-stream; watch every outcome row respond. That is the ontology itself. Loss is downstream of the Jacobian, not equivalent to it.</p>
+              </div>
+            </div>
+            <div class="insight">
+              <strong>The matrix is the map:</strong> Every intervention in the world corresponds to a column operation on J. The Jacobian makes the causal structure of the system legible before any optimization begins.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── STAGE III ── -->
+    <div class="stage" data-index="2" onclick="toggle(this)">
+      <div class="stage-node"><div class="node-dot"></div></div>
+      <div class="stage-body">
+        <div class="stage-head">
+          <span class="bantu">Ivyabona</span>
+          <span class="bantu-gloss">they have seen · witnessing with uncertainty</span>
+          <span class="math">f(σ²,λ,ε)</span>
+        </div>
+        <div class="stage-detail">
+          <div class="stage-detail-inner">
+            <div class="stage-content">
+              <div class="detail-block">
+                <div class="detail-label">System role</div>
+                <p>Inference under uncertainty. The observer is inside the model — not pretending to stand outside it.</p>
+              </div>
+              <div class="detail-block">
+                <div class="detail-label">Philosophical register</div>
+                <p>Bayesian filtering, state estimation, active inference. Perturbations exist in the witnessing itself — <code>ε</code> is not just measurement noise; it is the error of the instrument that holds all the other errors.</p>
+              </div>
+              <div class="detail-block wide">
+                <div class="detail-label">ROYGBIV legibility layer</div>
+                <p>The heatmap gradient (most explicit from Red → Violet) encodes the directionality and intensity of energies and resources across the system. The color spectrum is not decorative; it is the compression of a high-dimensional sensitivity surface into a human-readable form.</p>
+                <div class="roygbiv" style="height:6px; margin-top: 0.5rem;">
+                  <span style="background:linear-gradient(to right, #F87171, #FB923C, #FBBF24, #4ADE80, #60A5FA, #A78BFA)"></span>
+                </div>
+              </div>
+            </div>
+            <div class="insight">
+              <strong>The shift from "account for uncertainty" to "acknowledge perturbations in witnessing itself"</strong> is not cosmetic. It moves the system from classical statistics into control theory: the observer has entered the equations.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── STAGE IV ── -->
+    <div class="stage" data-index="3" onclick="toggle(this)">
+      <div class="stage-node"><div class="node-dot"></div></div>
+      <div class="stage-body">
+        <div class="stage-head">
+          <span class="bantu">Ukubona</span>
+          <span class="bantu-gloss">to see · act and learn through descent</span>
+          <span class="math">γ|ε_FGT|²</span>
+        </div>
+        <div class="stage-detail">
+          <div class="stage-detail-inner">
+            <div class="stage-content">
+              <div class="detail-block">
+                <div class="detail-label">System role</div>
+                <p>Reality-constrained optimization. Stochastic gradient descent supervised not by a label — but by tomorrow.</p>
+              </div>
+              <div class="detail-block">
+                <div class="detail-label">Federated Ground Truth</div>
+                <p>LLM predicts at <code>t</code>. Reality provides ground truth at <code>t+1</code>. The difference is loss. FGT has sole authority; the LLM is a removable module. GPT, Claude, Grok, or a hand-written heuristic — all interchangeable.</p>
+              </div>
+              <div class="detail-block wide">
+                <div class="detail-label">The jitter principle</div>
+                <p>Deliberate noise injection simulates life's curveballs and enables local basin escape. The only constraint on the system is the trajectory of descent. All other governance is built on top of that single rule — not before it.</p>
+              </div>
+            </div>
+            <div class="insight">
+              <strong>Most AI systems optimize prediction error.</strong> This system optimizes prediction error <em>against tomorrow</em>. That distinction is the real contribution: reality — not the model — is the supervisor. The LLM is a hypothesis; the world is the test.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── STAGE V ── -->
+    <div class="stage" data-index="4" onclick="toggle(this)">
+      <div class="stage-node"><div class="node-dot"></div></div>
+      <div class="stage-body">
+        <div class="stage-head">
+          <span class="bantu">Sawubona</span>
+          <span class="bantu-gloss">I see you · acknowledge other architects</span>
+          <span class="math">L(θᵗ⁺¹)</span>
+        </div>
+        <div class="stage-detail">
+          <div class="stage-detail-inner">
+            <div class="stage-content">
+              <div class="detail-block">
+                <div class="detail-label">System role</div>
+                <p>Updated policy. The UI/UX is not designed — it is an emergent consequence of the optimization. The ecosystem is inescapable because it is derived.</p>
+              </div>
+              <div class="detail-block">
+                <div class="detail-label">Governance principle</div>
+                <p>Every stack item must justify its keep. If a dependency does not decrease total system loss, it leaves. This prevents entropy by treating the stack as an optimization proof, not a feature list.</p>
+              </div>
+              <div class="detail-block wide">
+                <div class="detail-label">Implementation</div>
+                <p>Vite-React with multimodal LLM as a toggle. The LLM is not load-bearing — the system operates without it. Sawubona also names other architects demonstrating aligned values: acknowledgment of intellectual kinship across ecosystems.</p>
+              </div>
+            </div>
+            <div class="insight">
+              <strong>UI as governance:</strong> When the interface is a consequence of optimization rather than a design exercise, it is self-pruning. Features that don't reduce loss disappear. This is how biological evolution behaves — and how most startups don't.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /stages -->
+
+  <!-- Feedback arc back to I -->
+  <div class="feedback-arc">
+    <div class="arc-arrow"></div>
+    <div class="arc-line"></div>
+    <span class="arc-label">θᵗ⁺¹ → θᵗ · loop closes</span>
+  </div>
+
+  <!-- ── ARCHITECTURE EVOLUTION TABLE ── -->
+  <div class="arch-section">
+    <p class="section-title">Architecture evolution · pipeline → control system</p>
+    <table class="arch-table">
+      <thead>
+        <tr>
+          <th>Stage</th>
+          <th>Before</th>
+          <th>Now</th>
+          <th>Why it matters</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>I · θᵗ</td>
+          <td class="before-after">Observe</td>
+          <td>Map landscape</td>
+          <td>System begins from a joint distribution, not isolated observations</td>
+        </tr>
+        <tr>
+          <td>II · J</td>
+          <td class="before-after">Measure loss</td>
+          <td>Jacobian</td>
+          <td>Second-order object: sensitivities, not outcomes</td>
+        </tr>
+        <tr>
+          <td>III · f(σ²,λ,ε)</td>
+          <td class="before-after">Witness</td>
+          <td>Explicit uncertainty</td>
+          <td>Observer enters the equations; witnessing is not passive</td>
+        </tr>
+        <tr>
+          <td>IV · γ|ε_FGT|²</td>
+          <td class="before-after">Optimize</td>
+          <td>Federated Ground Truth</td>
+          <td>Reality, not labels, supervises the optimizer</td>
+        </tr>
+        <tr>
+          <td>V · L(θᵗ⁺¹)</td>
+          <td class="before-after">UX</td>
+          <td>Ecosystem</td>
+          <td>UI is emergent consequence of optimization, not design exercise</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── CONTROL LOOP EQUATION ── -->
+  <div class="eq-block">
+    <p class="eq-label">The complete loop</p>
+    <div class="eq-row"><span class="eq-symbol">θᵗ</span><span class="eq-arrow">→</span><span class="eq-desc">state estimation · event stream</span></div>
+    <div class="eq-row"><span class="eq-symbol">↓</span></div>
+    <div class="eq-row"><span class="eq-symbol">J = ∂y/∂x</span><span class="eq-arrow">→</span><span class="eq-desc">sensitivity estimation · ontology matrix</span></div>
+    <div class="eq-row"><span class="eq-symbol">↓</span></div>
+    <div class="eq-row"><span class="eq-symbol">f(σ²,λ,ε)</span><span class="eq-arrow">→</span><span class="eq-desc">inference under uncertainty</span></div>
+    <div class="eq-row"><span class="eq-symbol">↓</span></div>
+    <div class="eq-row"><span class="eq-symbol">γ|ε_FGT|²</span><span class="eq-arrow">→</span><span class="eq-desc">reality-constrained gradient descent</span></div>
+    <div class="eq-row"><span class="eq-symbol">↓</span></div>
+    <div class="eq-row"><span class="eq-symbol">L(θᵗ⁺¹)</span><span class="eq-arrow">→</span><span class="eq-desc">updated policy · ecosystem output</span></div>
+    <div class="eq-row"><span class="eq-symbol">↓ ↺</span><span class="eq-arrow"></span><span class="eq-desc">θᵗ⁺¹ becomes next θᵗ</span></div>
+  </div>
+
+</main>
+
+<footer>
+  <span class="brand">Ukubona LLC</span>
+  <span class="ts">Systems Architect · 2026</span>
+</footer>
+
+<script>
+  function toggle(el) {
+    const wasActive = el.classList.contains('active');
+    // Close all
+    document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+    // Open this one if it wasn't already open
+    if (!wasActive) el.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
