@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ukubona · Systems Architect</title>
+<link rel="icon" href="https://abikesa.github.io/favicon/assets/favicon-dark.ico"/>
+<link rel="icon" href="https://abikesa.github.io/favicon/assets/favicon-light.ico" media="(prefers-color-scheme:light)"/>
+<link rel="preload" href="https://abikesa.github.io/logos/assets/ukubona-dark.png" as="image"/>
+<link rel="preload" href="https://abikesa.github.io/logos/assets/ukubona-light.png" as="image"/>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400;500&display=swap');
 
@@ -33,6 +37,20 @@
     --loop-w:    2px;
   }
 
+  /* ── LIGHT THEME ─────────────────────────────────────────── */
+  [data-theme="light"] {
+    --bg:        #F2F0EA;
+    --surface:   #FFFFFF;
+    --surface2:  #EDEAE2;
+    --border:    rgba(0,0,0,0.09);
+    --amber:     #92610A;
+    --amber-dim: #7A5208;
+    --amber-glow:#92610A18;
+    --text:      #18160F;
+    --muted:     #6B6555;
+    --faint:     #D9D4C8;
+  }
+
   html { scroll-behavior: smooth; }
 
   body {
@@ -43,7 +61,91 @@
     line-height: 1.6;
     min-height: 100vh;
     overflow-x: hidden;
+    transition: background 0.35s, color 0.35s;
   }
+
+  /* ── STICKY NAV ──────────────────────────────────────────── */
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 300;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: background 0.35s;
+  }
+
+  .nav-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .logo-wrap {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    position: relative;
+    cursor: default;
+  }
+
+  .logo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: absolute;
+    top: 0; left: 0;
+    transition: opacity 0.4s;
+    animation: spin 90s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-wrap img { animation: none; }
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .logo-dark  { opacity: 1; }
+  .logo-light { opacity: 0; }
+  [data-theme="light"] .logo-dark  { opacity: 0; }
+  [data-theme="light"] .logo-light { opacity: 1; }
+
+  .nav-brand {
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    color: var(--text);
+    flex: 1;
+    letter-spacing: -0.01em;
+  }
+
+  .nav-sub {
+    font-family: var(--mono);
+    font-size: 0.56rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    margin-left: 0.4rem;
+  }
+
+  .theme-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 0.26rem 0.8rem;
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    color: var(--muted);
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    transition: background 0.2s, color 0.2s;
+    flex-shrink: 0;
+  }
+
+  .theme-btn:hover { color: var(--text); }
 
   /* ── HEADER ─────────────────────────────────────────────── */
   header {
@@ -506,9 +608,125 @@
     padding: 0.5rem 0 0;
     opacity: 0.7;
   }
+
+  /* ── VIDEO SECTION ───────────────────────────────────────── */
+  .video-section {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 0;
+  }
+
+  .video-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .video-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .video-wrap {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 */
+    background: #000;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .video-wrap iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+
+  /* Timestamps */
+  .timestamps {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.5rem;
+  }
+
+  .ts-chip {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.6rem 0.85rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+    cursor: pointer;
+  }
+
+  .ts-chip:hover {
+    border-color: var(--amber-dim);
+    background: var(--surface2);
+    text-decoration: none;
+  }
+
+  .ts-time {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--amber);
+    flex-shrink: 0;
+    padding-top: 0.05rem;
+    min-width: 2.8rem;
+  }
+
+  .ts-desc {
+    font-size: 0.75rem;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+
+  .ts-chip:hover .ts-desc { color: var(--text); }
+
+  .ts-stage {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    color: var(--amber-dim);
+    display: block;
+    margin-top: 0.2rem;
+  }
+
+  .video-caption {
+    margin-top: 0.85rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.6;
+    font-style: italic;
+  }
 </style>
 </head>
 <body>
+
+<nav class="site-nav" aria-label="Site navigation">
+  <div class="nav-inner">
+    <div class="logo-wrap" aria-hidden="true">
+      <img class="logo-dark"  src="https://abikesa.github.io/logos/assets/ukubona-dark.png"  alt=""/>
+      <img class="logo-light" src="https://abikesa.github.io/logos/assets/ukubona-light.png" alt=""/>
+    </div>
+    <div class="nav-brand">Ukubona <span class="nav-sub">· Systems Architect · Architecture Reference</span></div>
+    <button class="theme-btn" id="theme-btn" aria-label="Toggle color theme">light</button>
+  </div>
+</nav>
 
 <header>
   <p class="eyebrow">Ukubona LLC · Architecture Reference</p>
@@ -518,6 +736,64 @@
     Semantics, measurement, optimization, and governance aligned in a single closed system.
   </p>
 </header>
+
+<!-- ── VIDEO ORIGIN ──────────────────────────────────────────── -->
+<div class="video-section">
+  <p class="video-label">Where it started · The Madness of Steve Jobs Told by Steve Wozniak</p>
+
+  <div class="video-wrap">
+    <iframe
+      src="https://www.youtube.com/embed/R3OcY37GOAA"
+      title="The Madness of Steve Jobs Told by Steve Wozniak — Valuetainment"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <div class="timestamps">
+
+    <a class="ts-chip" href="https://www.youtube.com/watch?v=R3OcY37GOAA&t=0s" target="_blank">
+      <span class="ts-time">0:00</span>
+      <span class="ts-desc">"A good leader has to spot the talented resources… the right direction to go — he was the direction setter."
+        <span class="ts-stage">I · Okubonabona · θᵗ · the landscape before the descent</span>
+      </span>
+    </a>
+
+    <a class="ts-chip" href="https://www.youtube.com/watch?v=R3OcY37GOAA&t=360s" target="_blank">
+      <span class="ts-time">~6:00</span>
+      <span class="ts-desc">Woz invokes Newton &amp; Shakespeare — Jobs benchmarks himself against paradigm-shifters, not hobbyists
+        <span class="ts-stage">II · Kubona · J = ∂y/∂x · sensitivity to the civilizational gradient</span>
+      </span>
+    </a>
+
+    <a class="ts-chip" href="https://www.youtube.com/watch?v=R3OcY37GOAA&t=904s" target="_blank">
+      <span class="ts-time">15:04</span>
+      <span class="ts-desc">"He wasn't an engineer… he couldn't write a program… but he knew what would sell." — Woz on Jobs
+        <span class="ts-stage">III · Ivyabona · f(σ²,λ,ε) · the observer's asymmetry</span>
+      </span>
+    </a>
+
+    <a class="ts-chip" href="https://www.youtube.com/watch?v=R3OcY37GOAA&t=0s" target="_blank">
+      <span class="ts-time">full</span>
+      <span class="ts-desc">Woz as the multimodal LLM — brilliant at each node, swappable. Jobs as γ|ε_FGT|² — the trajectory itself
+        <span class="ts-stage">IV · Ukubona · γ|ε_FGT|² · direction of descent</span>
+      </span>
+    </a>
+
+    <a class="ts-chip" href="https://www.youtube.com/watch?v=R3OcY37GOAA&t=0s" target="_blank">
+      <span class="ts-time">full</span>
+      <span class="ts-desc">The inescapable ecosystem — UI/UX as emergent consequence of who sets the direction
+        <span class="ts-stage">V · Sawubona · L(θᵗ⁺¹) · Valuetainment · 2M views</span>
+      </span>
+    </a>
+
+  </div>
+  <p class="video-caption">
+    <strong>The Madness of Steve Jobs Told by Steve Wozniak</strong> — Valuetainment · 2M views.
+    Timestamps verified by Gemini. Woz is the LLM at the node; Jobs is the γ|ε_FGT|² — the architect of descent.
+    You find Woz going back to Berkeley strange for the same reason Jobs would have. Grok got it backwards.
+  </p>
+</div>
 
 <main>
   <div class="loop-label">Control loop · click any stage to expand</div>
@@ -781,11 +1057,24 @@
 </footer>
 
 <script>
+  // ── THEME TOGGLE ─────────────────────────────────────────
+  (function(){
+    var html = document.documentElement;
+    var btn  = document.getElementById('theme-btn');
+    var curr = 'dark';
+    function apply(t){
+      curr = t;
+      html.setAttribute('data-theme', t);
+      btn.textContent = t === 'dark' ? 'light' : 'dark';
+    }
+    btn.addEventListener('click', function(){ apply(curr === 'dark' ? 'light' : 'dark'); });
+    apply('dark');
+  })();
+
+  // ── STAGE EXPAND ─────────────────────────────────────────
   function toggle(el) {
-    const wasActive = el.classList.contains('active');
-    // Close all
-    document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
-    // Open this one if it wasn't already open
+    var wasActive = el.classList.contains('active');
+    document.querySelectorAll('.stage').forEach(function(s){ s.classList.remove('active'); });
     if (!wasActive) el.classList.add('active');
   }
 </script>
